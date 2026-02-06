@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_app/features/presentation/on_boarding_view.dart';
+
+
 
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
@@ -18,8 +22,14 @@ class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateM
     fadingAnimation=
     Tween<double>(begin: 0.2,end: 1).animate(animationController!);
     animationController?.repeat(reverse: true);
+    goToNextView();
   }
-
+  @override
+  void dispose() {
+    animationController?.dispose();
+    super.dispose();
+    
+  }
   Widget build(BuildContext context) {
     return Center(
       child: Column(
@@ -49,4 +59,9 @@ class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateM
       ),
     );
   }
-}
+  
+void goToNextView() {
+  Future.delayed(Duration(seconds: 3), () {
+    Get.to(() => OnBoardingView(),transition: Transition.fade);
+  });
+}}
